@@ -22,8 +22,8 @@ def get_reading():
         return
 
     temp_f = temp_c * 9.0 / 5.0 + 32.0
-    streamer.log(f"{Config.SENSOR_LOCATION_NAME} Temperature(F) {temp_f:.2f}")
-    streamer.log(f"{Config.SENSOR_LOCATION_NAME} Humidity(%) {humidity:.2f}")
+    streamer.log("Temperature (F)", temp_f)
+    streamer.log("Humidity (%)", humidity)
     streamer.flush()
 
 
