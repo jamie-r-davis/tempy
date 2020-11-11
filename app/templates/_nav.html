@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-md navbar-light bg-white">
+    <div class="container">
+        <a href="{{ url_for('tempy.index') }}" class="navbar-brand"><i class="fas fa-cloud mr-1 text-primary"></i>Tempy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="{{ url_for('tempy.dashboard') }}" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="{{ url_for('tempy.sensor_list') }}" class="nav-link">Sensors</a></li>
+                    {% if current_user.is_anonymous %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+                    {% else %}
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="user-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ current_user.username }}</a>
+                        <div class="dropdown-menu" arai-labelledby="user-dropdown">
+                            <a href="{{ url_for('auth.logout') }}" class="dropdown-item">Logout</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

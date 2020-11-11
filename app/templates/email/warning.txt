@@ -1,0 +1,14 @@
+{{sensor.name}} logged a reading outside of its {{key}} threshold:
+
+{% for reading in readings %}
+{% if key == 'temperature' %}
+    {% if reading.value < sensor.min_temp or reading.value >= sensor.max_temp %}
+    {{ reading.timestamp.strftime('%-I:%M %P') }}: {{ reading.value | round | int }}°F
+    {% endif %}
+{% endif %}
+{% if key == 'humidity' %}
+    {% if reading.value < sensor.min_humidity or reading.value >= sensor.max_humidity %}
+    {{ reading.timestamp.strftime('%-I:%M %p') }}: {{ reading.value | round | int }}%
+    {% endif %}
+{% endif %}
+{% endfor %}

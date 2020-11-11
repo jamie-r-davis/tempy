@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="mb-4">
+    <h1 class="h3 text-gray-800">Sensors</h1>
+</div>
+<div class="row mb-4">
+    {% for sensor in sensors %}
+    <div class="col-xl-4 col-lg-6 mb-4">
+        <a href="{{ url_for('tempy.sensor_detail', sensor_id=sensor.id) }}">
+        <div class="card border-left-primary py-2 shadow h-100" data-href="{{ url_for('tempy.sensor_detail', sensor_id=sensor.id) }}">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{sensor.name}}</div>
+                        {% if sensor.last_seen %}
+                        <div class="small">Last Seen: {{sensor.last_seen.strftime('%Y-%m-%d %-I:%M %p')}}</div>
+                        {% else %}
+                        <div class="small">No Readings Reported</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-auto"><i class="fas fa-thermometer-half fa-2x text-gray-300"></i></div>
+                </div>
+            </div>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% if current_user.is_authenticated %}
+<div class="mb-4">
+    <a class="btn btn-sm btn-outline-secondary" role="button" href="{{ url_for('tempy.add_sensor') }}">Add sensor</a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  FW = window.FW || {
+  	Navigate: function(el) {
+  		let href = $(el).closest('*[data-href]').data('href');
+  		window.location = href;
+  	}
+  };
+</script>
+{% endblock %}

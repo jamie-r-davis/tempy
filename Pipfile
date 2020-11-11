@@ -6,9 +6,20 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-isstreamer = "*"
-adafruit-circuitpython-dht = "*"
 python-dotenv = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+flask-login = "*"
+flask-migrate = "*"
+flask-mail = "*"
+PyJWT = "*"
+werkzeug = "*"
+wtforms = "*"
+flask-wtf = "*"
+email-validator = "*"
+flask-bs4 = "*"
+sqlalchemy-utils = "*"
+flask-apscheduler = "*"
 
 [requires]
 python_version = "3.8"

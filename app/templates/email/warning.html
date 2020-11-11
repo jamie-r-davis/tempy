@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>{{key.title()}} Warning</title>
+</head>
+<body>
+<p>{{sensor.name}} logged a reading outside of its {% if key == 'temperature' %}{{sensor.min_temp}}&ndash;{{sensor.max_temp}}°F temperature{% else %}{{sensor.min_humidity}}&ndash;{{sensor.max_humidity}}%{% endif %} threshold:</p>
+
+<table>
+    <tbody>
+        {% for reading in readings %}
+        <tr>
+            <td>{{reading.timestamp.strftime('%-I:%M %p')}}</td>
+            {% if key == 'temperature' %}
+            <td>{{reading.value | round | int }}°F</td>
+            {% endif %}
+            {% if key == 'humidity' %}
+            <td>{{reading.value | round | int }}%</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

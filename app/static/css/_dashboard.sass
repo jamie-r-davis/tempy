@@ -1,0 +1,29 @@
+.reading
+  color: #fff
+  height: 16rem
+  text-align: center
+  border: none
+  box-shadow: $box-shadow
+
+  .reading-label
+    color: rgba(255,255,255,0.6)
+    font-weight: 300
+    z-index: 10
+
+  .reading-value
+    text-shadow: 0.025em 0.025em rgba(0,0,0,0.1)
+    z-index: 10
+    font-size: 5.5rem
+    font-weight: bold
+
+    &>i
+      font-size: 60%
+
+
+  .reading-chart
+    position: absolute
+    bottom: 0
+    width: 100%
+
+    canvas
+      border-radius: $border-radius

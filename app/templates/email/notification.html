@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% if title %}{{title}}{% else %}CelloBarn{% endif %}{% endblock %}</title>
+    <style>
+        body {
+            background-color: #fafafa;
+            width 100%;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        td {
+            border-collapse: collapse;
+            border: 0;
+            padding: 0;
+        }
+        .wrapper {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #333;
+            font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+        .wrapper--header {
+            height: 30px;
+        }
+        .wrapper--content {
+            background-color: #fff;
+            text-align: center;
+        }
+        .wrapper--footer {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<table class="wrapper">
+    <tbody>
+    <tr class="wrapper--header">
+        <td>
+
+        </td>
+    </tr>
+    <tr id="content" class="wrapper--content">
+        <td>
+            <table>
+                <tbody>
+                <tr>
+                    <td style="width: 30px;"></td>
+                    <td id="content">
+                        <h1>Notification</h1>
+                        <p>Your sensor logged a reading outside of its threshold settings.</p>
+                        <table cellspacing="0" cellpadding="0" >
+                            <tbody>
+                            <tr>
+                                <td style="width: 120px;"></td>
+                                <td style="width: 300px; background: red;">
+                                    Graph goes here
+                                </td>
+                                <td style="width: 120px;"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td style="width: 30px"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr class="wrapper--footer">
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div id="sensor-header" class="mb-4">
+    <h1 class="h2 text-gray-800">{{ sensor.name }}</h1>
+    <div class="text-monospace small">{{ sensor.uuid }}</div>
+</div>
+<div id="sensor-attr" class="mb-4">
+    <div>Temp Range: <span class="font-weight-bold text-gray-700">{{ sensor.min_temp}}&ndash;{{sensor.max_temp}}°F</span></div>
+    <div>Humidity Range: <span class="font-weight-bold text-gray-700">{{sensor.min_humidity}}&ndash;{{sensor.max_humidity}}%</span></div>
+    <div>{% if sensor.notify_active %}<span class="text-success">Notifications enabled</span>{% else %}<span class="text-muted">Notifications disabled</span>{% endif %}</div>
+    {% if current_user.is_authenticated %}
+    <div class="my-3">
+        <a class="btn btn-outline-secondary btn-sm" role="button" href="{{ url_for('tempy.edit_sensor', sensor_id=sensor.id) }}">Edit Sensor</a>
+    </div>
+{% endif %}
+</div>
+
+
+
+<h2>Recent Readings</h2>
+<div class="row">
+    <div class="col-sm-6 mb-4">
+<h3 class="h4 text-gray-700">Temperature</h3>
+<table class="table table-sm small mt-3">
+    <tbody>
+    {% for reading in temp_readings %}
+    <tr {% if reading.value < sensor.min_temp or reading.value > sensor.max_temp%}class="bg-danger text-white"{%endif%}>
+        <th class="font-weight-bold">{{ reading.timestamp.strftime('%-I:%M %p') }}</th>
+        <td class="text-right">{{ reading.value | round(1) }}°F</td>
+        <td class="text-right">{{ reading.value | celsius | round(1) }}°C</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<div class="col-sm-6 mb-4">
+<h3 class="h4 text-gray-700">Humidity</h3>
+<table class="table small table-sm mt-3">
+    <tbody>
+    {% for reading in humidity_readings %}
+    <tr {% if reading.value < sensor.min_humidity or reading.value > sensor.max_humidity%}class="bg-danger text-white"{%endif%}>
+        <th class ="font-weight-bold text-gray-700">{{ reading.timestamp.strftime('%-I:%M %p') }}</th>
+        <td class="text-right">{{ reading.value | round(1) }}%</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+</div>
+</div>

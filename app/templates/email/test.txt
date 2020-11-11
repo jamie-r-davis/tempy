@@ -1,0 +1,3 @@
+{% if sync %}Sync{% else %}Async{% endif %} Email Test
+
+This is a test.

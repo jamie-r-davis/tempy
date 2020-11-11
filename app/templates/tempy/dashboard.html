@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div id="last-reading">
+    {% set last_temp_reading = temp_readings | first %}
+    {% set last_humidity_reading = humidity_readings | first %}
+    <div class="row row-cols-1 row-cols-md-2">
+        <div class="col mb-4">
+            <div id="temperature" class="reading card bg-primary d-flex align-items-middle justify-content-center">
+                <div class="reading-value">
+                    <i class="fas fa-thermometer-half mr-2"></i>
+                    <span>{{ last_temp_reading.value | round | int }}°F</span>
+                </div>
+                <div class="reading-label">Temperature</div>
+                <div class="reading-chart">
+                    <canvas id="temp-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <div id="humidity" class="card reading bg-info d-flex align-items-middle justify-content-center">
+                <div class="reading-value">
+                    <i class="fas fa-tint"></i>
+                    <span>{{ last_humidity_reading.value | round | int }}%</span>
+                </div>
+                <div class="reading-label">Humidity</div>
+                <div class="reading-chart">
+                    <canvas id="humidity-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="reading-last-seen text-muted text-center small">Last seen: <span class="text-monospace">{{last_temp_reading.timestamp.strftime('%Y-%m-%d %-I:%M %p') }}</span></div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+
+<script>
+    const options = {
+        legend: {
+                display: false
+            },
+        scales: {
+            xAxes: [{
+                type: 'time',
+                display: false
+            }],
+                yAxes: [{
+                    display: false,
+                    ticks: {
+                        min: 32,
+                        max: 90,
+                    }
+            }]
+        }
+    };
+    const TempChart = new Chart(document.getElementById('temp-chart'), {
+        type: 'line',
+        options: options,
+        data: {
+            datasets: [
+                {
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    pointRadius: 0,
+                    label: 'Temperature',
+                    data: [
+                        {%- for reading in temp_readings -%}
+                {x: "{{ reading.timestamp.strftime('%Y-%m-%d %H:%M') }}", y: {{ reading.value | round | int }}},
+                        {%- endfor -%}
+                    ],
+                    fill: true,
+                    lineTension: 0.5
+                }
+            ]
+        }
+    });
+
+    const HumidityChart = new Chart(document.getElementById('humidity-chart'), {
+        type: 'line',
+        options: options,
+        data: {
+            datasets: [
+                {
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                    pointRadius: 0,
+                    label: 'Humidity',
+                    data: [
+                        {%- for reading in humidity_readings -%}
+                {x: "{{ reading.timestamp.strftime('%Y-%m-%d %H:%M') }}", y: {{ reading.value | round | int }}},
+                        {%- endfor -%}
+                    ],
+                    fill: true,
+                    lineTension: 0.5
+                }
+            ]
+        }
+    });
+    HumidityChart.options.scales.yAxes[0].ticks = {min: 0, max: 100};
+    HumidityChart.update();
+
+</script>
+
+{% endblock %}
