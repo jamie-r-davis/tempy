@@ -89,6 +89,12 @@ class Reading(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
     key = db.Column(db.String(200), index=True, nullable=False)
     value = db.Column(db.Float, nullable=False)
+    
+    def format_value(self, precision=0):
+        if self.key == 'humidity':
+            return f"{self.value:0.{precision}f}%"
+        if self.key == 'temperature':
+            return f"{self.value:0.{precision}f}°F"
 
     def __repr__(self):
-        return f"<{self.__class__.__name__} {self.id} {self.key}={self.value}>"
+        return f"<{self.__class__.__name__} {self.id} {self.key}={self.format_value()}>"

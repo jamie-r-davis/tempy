@@ -9,7 +9,7 @@
             <div id="temperature" class="reading card bg-primary d-flex align-items-middle justify-content-center">
                 <div class="reading-value">
                     <i class="fas fa-thermometer-half mr-2"></i>
-                    <span>{{ last_temp_reading.value | round | int }}°F</span>
+                    <span>{{ last_temp_reading.format_value() }}</span>
                 </div>
                 <div class="reading-label">Temperature</div>
                 <div class="reading-chart">
@@ -22,7 +22,7 @@
             <div id="humidity" class="card reading bg-info d-flex align-items-middle justify-content-center">
                 <div class="reading-value">
                     <i class="fas fa-tint"></i>
-                    <span>{{ last_humidity_reading.value | round | int }}%</span>
+                    <span>{{ last_humidity_reading.format_value() }}</span>
                 </div>
                 <div class="reading-label">Humidity</div>
                 <div class="reading-chart">

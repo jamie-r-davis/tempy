@@ -5,16 +5,19 @@
 <body>
 <p>{{sensor.name}} logged a reading outside of its {% if key == 'temperature' %}{{sensor.min_temp}}&ndash;{{sensor.max_temp}}°F temperature{% else %}{{sensor.min_humidity}}&ndash;{{sensor.max_humidity}}%{% endif %} threshold:</p>
 
+<p>Min {{key}}: {{ min_value.format_value() }}</p>
+
+
 <table>
     <tbody>
         {% for reading in readings %}
         <tr>
             <td>{{reading.timestamp.strftime('%-I:%M %p')}}</td>
             {% if key == 'temperature' %}
-            <td>{{reading.value | round | int }}°F</td>
+            <td>{{reading.format_value() }}</td>
             {% endif %}
             {% if key == 'humidity' %}
-            <td>{{reading.value | round | int }}%</td>
+            <td>{{reading.format_value() }}%</td>
             {% endif %}
         </tr>
         {% endfor %}
