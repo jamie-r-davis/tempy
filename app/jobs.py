@@ -49,13 +49,13 @@ def check_readings(key):
         send = False
         user = User.query.get(sensor.user_id)
         readings = sensor.get_readings(key, start=start)
-        min_value = min(x.value for x in readings)
-        max_value = max(x.value for x in readings)
+        min_value = min(readings, key=lambda x: x.value)
+        max_value = max(readings, key=lambda x: x.value)
         if key == "humidity":
-            if min_value < sensor.min_humidity or max_value > sensor.max_humidity:
+            if min_value.value < sensor.min_humidity or max_value.value > sensor.max_humidity:
                 send = True
         if key == "temperature":
-            if min_value < sensor.min_temp or max_value > sensor.max_temp:
+            if min_value.value < sensor.min_temp or max_value.value > sensor.max_temp:
                 send = True
         if send:
             send_warning_email(key=key, user=user, sensor=sensor, readings=readings, min_value=min_value, max_value=max_value)
