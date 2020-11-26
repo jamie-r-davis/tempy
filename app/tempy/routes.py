@@ -5,16 +5,7 @@ from app.email import send_email
 from app.models import Reading, Sensor
 from app.tempy import bp
 from app.tempy.forms import SensorForm
-from flask import (
-    abort,
-    current_app,
-    flash,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import abort, current_app, flash, jsonify, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 
@@ -157,8 +148,8 @@ def get_readings():
     return {"sensor": sensor.id, "readings": serialized_readings}
 
 
-@bp.route('/check')
+@bp.route("/check")
 def check():
-    scheduler.run_job('temp_check')
-    scheduler.run_job('humidity_check')
-    return 'OK'
+    scheduler.run_job("temp_check")
+    scheduler.run_job("humidity_check")
+    return "OK"

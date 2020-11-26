@@ -6,20 +6,22 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-python-dotenv = "*"
+email-validator = "*"
 flask = "*"
-flask-sqlalchemy = "*"
+flask-apscheduler = "*"
+flask-bs4 = "*"
 flask-login = "*"
-flask-migrate = "*"
 flask-mail = "*"
+flask-migrate = "*"
+flask-moment = "*"
+flask-sqlalchemy = "*"
+flask-wtf = "*"
+mysqlclient = "*"
 PyJWT = "*"
+python-dotenv = "*"
+sqlalchemy-utils = "*"
 werkzeug = "*"
 wtforms = "*"
-flask-wtf = "*"
-email-validator = "*"
-flask-bs4 = "*"
-sqlalchemy-utils = "*"
-flask-apscheduler = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

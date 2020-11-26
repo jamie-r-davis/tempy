@@ -33,10 +33,20 @@ def send_warning_email(key, user, sensor, readings, min_value, max_value):
     sender = "noreply@cellobarn.com"
     to = [user.email]
     body = render_template(
-        "email/warning.txt", key=key, sensor=sensor, readings=readings, min_value=min_value, max_value=max_value
+        "email/warning.txt",
+        key=key,
+        sensor=sensor,
+        readings=readings,
+        min_value=min_value,
+        max_value=max_value,
     )
     html = render_template(
-        "email/warning.html", key=key, sensor=sensor, readings=readings, min_value=min_value, max_value=max_value
+        "email/warning.html",
+        key=key,
+        sensor=sensor,
+        readings=readings,
+        min_value=min_value,
+        max_value=max_value,
     )
     send_email(subject, sender, to, text_body=body, html_body=html, sync=True)
 
@@ -52,11 +62,21 @@ def check_readings(key):
         min_value = min(readings, key=lambda x: x.value)
         max_value = max(readings, key=lambda x: x.value)
         if key == "humidity":
-            if min_value.value < sensor.min_humidity or max_value.value > sensor.max_humidity:
+            if (
+                min_value.value < sensor.min_humidity
+                or max_value.value > sensor.max_humidity
+            ):
                 send = True
         if key == "temperature":
             if min_value.value < sensor.min_temp or max_value.value > sensor.max_temp:
                 send = True
         if send:
-            send_warning_email(key=key, user=user, sensor=sensor, readings=readings, min_value=min_value, max_value=max_value)
+            send_warning_email(
+                key=key,
+                user=user,
+                sensor=sensor,
+                readings=readings,
+                min_value=min_value,
+                max_value=max_value,
+            )
     app.logger.info(f"{key.title()} check complete")
