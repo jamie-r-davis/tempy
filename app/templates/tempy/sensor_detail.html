@@ -3,7 +3,9 @@
 {% block app_content %}
 <div id="sensor-header" class="mb-4">
     <h1 class="h2 text-gray-800">{{ sensor.name }}</h1>
+    {% if current_user.is_authenticated %}
     <div class="text-monospace small">{{ sensor.uuid }}</div>
+    {% endif %}
 </div>
 <div id="sensor-attr" class="mb-4">
     <div>Temp Range: <span class="font-weight-bold text-gray-700">{{ sensor.min_temp}}&ndash;{{sensor.max_temp}}°F</span></div>
@@ -17,7 +19,7 @@
 </div>
 
 
-
+<div class="mt-5">
 <h2>Recent Readings</h2>
 <div class="row">
     <div class="col-sm-6 mb-4">
@@ -48,5 +50,6 @@
     </tbody>
 </table>
 {% endblock %}
+</div>
 </div>
 </div>
