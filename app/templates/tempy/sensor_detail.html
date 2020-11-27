@@ -28,7 +28,7 @@
     <tbody>
     {% for reading in temp_readings %}
     <tr {% if reading.value < sensor.min_temp or reading.value > sensor.max_temp%}class="bg-danger text-white"{%endif%}>
-        <th class="font-weight-bold">{{ reading.timestamp.strftime('%-I:%M %p') }}</th>
+        <th class="font-weight-bold">{{ moment(reading.timestamp).format('h:mm A') }}</th>
         <td class="text-right">{{ reading.format_value(1) }}</td>
         <td class="text-right">{{ reading.value | celsius | round(1) }}°C</td>
     </tr>
@@ -43,7 +43,7 @@
     <tbody>
     {% for reading in humidity_readings %}
     <tr {% if reading.value < sensor.min_humidity or reading.value > sensor.max_humidity%}class="bg-danger text-white"{%endif%}>
-        <th class ="font-weight-bold text-gray-700">{{ reading.timestamp.strftime('%-I:%M %p') }}</th>
+        <th class ="font-weight-bold text-gray-700">{{ moment(reading.timestamp).format('h:mm A') }}</th>
         <td class="text-right">{{ reading.format_value(1) }}</td>
     </tr>
     {% endfor %}

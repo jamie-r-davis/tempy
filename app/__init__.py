@@ -10,6 +10,7 @@ from flask_bs4 import Bootstrap
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
+from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 
 boostrap = Bootstrap()
@@ -19,23 +20,20 @@ login_manager = LoginManager()
 login_manager.login_view = "auth.login"
 login_manager.login_message = "Please login to access this page."
 mail = Mail()
+moment = Moment()
 scheduler = APScheduler()
 
 
 def create_app(config=Config):
     app = Flask(__name__)
     app.config.from_object(config)
-
     db.init_app(app)
     migrate.init_app(app, db)
-
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
-
     boostrap.init_app(app)
-
     mail.init_app(app)
-
+    moment.init_app(app)
     scheduler.init_app(app)
 
     # register custom jinja filters

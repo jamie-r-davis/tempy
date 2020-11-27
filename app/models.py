@@ -86,7 +86,7 @@ class Sensor(db.Model):
 class Reading(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sensor_id = db.Column(db.Integer, db.ForeignKey("sensor.id"))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     key = db.Column(db.String(200), index=True, nullable=False)
     value = db.Column(db.Float, nullable=False)
 

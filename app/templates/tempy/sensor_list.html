@@ -14,7 +14,7 @@
                     <div class="col mr-2">
                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{sensor.name}}</div>
                         {% if sensor.last_seen %}
-                        <div class="small">Last Seen: {{sensor.last_seen.strftime('%Y-%m-%d %-I:%M %p')}}</div>
+                        <div class="small">Last Seen: {{ moment(sensor.last_seen).format('YYYY-MM-DD h:mm A')}}</div>
                         {% else %}
                         <div class="small">No Readings Reported</div>
                         {% endif %}

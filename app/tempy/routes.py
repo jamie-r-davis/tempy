@@ -14,22 +14,10 @@ def index():
     return redirect(url_for("tempy.dashboard"))
 
 
-@bp.route("/count")
-def count():
-    scheduler.add_job(id="count", func="app.jobs:count_to_ten")
-    return "OK"
-
-
-@bp.route("/email")
-def email():
-    scheduler.add_job(id="test_email", func="app.jobs:send_test_email")
-    return "OK"
-
-
 @bp.route("/dashboard")
 def dashboard():
     sensor = Sensor.query.first()
-    start_dt = datetime.now() - timedelta(hours=24)
+    start_dt = datetime.utcnow() - timedelta(hours=24)
     temp_readings = sensor.get_readings("temperature", start=start_dt)
     humidity_readings = sensor.get_readings("humidity", start=start_dt)
     return render_template(
@@ -48,8 +36,8 @@ def sensor_list():
 
 @bp.route("/sensors/<sensor_id>")
 def sensor_detail(sensor_id):
-    start_dt = datetime.now() - timedelta(hours=3)
-    end_dt = datetime.now()
+    start_dt = datetime.utcnow() - timedelta(hours=3)
+    end_dt = datetime.utcnow()
     if "start" in request.args:
         start_dt = datetime.strptime(request.args.get("start"), "%Y%m%d%H%M%S")
     if "end" in request.args:
@@ -119,7 +107,7 @@ def create_reading():
         abort(404, "Invalid sensor.")
     temp_reading = Reading(sensor_id=sensor.id, key="temperature", value=temperature)
     humidity_reading = Reading(sensor_id=sensor.id, key="humidity", value=humidity)
-    sensor.last_seen = datetime.now()
+    sensor.last_seen = datetime.utcnow()
     db.session.add(temp_reading)
     db.session.add(humidity_reading)
     db.session.commit()

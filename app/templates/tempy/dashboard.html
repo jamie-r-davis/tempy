@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="reading-last-seen text-muted text-center small">Last seen: <span class="text-monospace">{{last_temp_reading.timestamp.strftime('%Y-%m-%d %-I:%M %p') }}</span></div>
+    <div class="reading-last-seen text-muted text-center small">Last seen: <span class="text-monospace">{{moment(last_temp_reading.timestamp).format('YYYY-MM-DD h:mm A') }}</span></div>
 </div>
 {% endblock %}
 
